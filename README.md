@@ -20,4 +20,45 @@ Spring-01:
                       userService.getUser();
                 }
             }
-    
+            
+            
+            使用Spring创建对象
+                <bean id="ControllerDaoImpl" class="com.zhangbin.dao.ControllerDaoImpl"></bean>
+                <bean id="UserDaoImpl" class="com.zhangbin.dao.UserDaoImpl"></bean>
+            
+                <bean id="UserServiceImpl" class="com.zhangbin.service.UserServiceImpl">
+                    <property name="userDao" ref="UserDaoImpl"></property>
+                </bean>
+            
+                <!--ref：引用Spring容器中创建好的对象-->
+                <!--value：具体的值，基本数据类型-->
+            测试方法：    
+                  //使用Spring
+                        // 获取ApplicationContext:拿到Spring的容器
+                        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+                        //通过容器调用，需要什么就获取什么
+                        UserServiceImpl userServiceImpl = (UserServiceImpl) context.getBean("UserServiceImpl");
+                        userServiceImpl.getUser();
+Spring-02:
+        所谓ioc:对象由Spring来创建，管理，装配
+            
+            
+            <!--使用spring来创建对象，在spring这些都称为bean
+        
+            类型 变量名 = new 类型（）
+            Hello hello =new Hello()
+        
+            id = 变量名  id是唯一的自定义的。
+            class = new 的对象
+            property 相当于给对象中的属性设置一个值，设置值是通过实体类的SET方法实现的-->
+            <bean id="helloId" class="com.zhangbin.pojo.Hello">
+                <property name="str"  value="Spring"></property>
+            </bean>
+            
+            测试方法：
+        //      获取spring的上下文对象，固定的
+                ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        //      我们的对象都在spring中的管理了，我们如果使用直接去里边取出来就可以了;
+                Hello hello =(Hello) context.getBean("helloId");
+                 System.out.println(hello.toString());
+                }
