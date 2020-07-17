@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--一：无参构造方法-->
+    <!-- 当实体类创建有参构造方法时，要对bean单独处理，因为它默认使用的是无参构造方法
+         <bean id="user" class="com.zhangbin.pojo.User">
+            <property name="name" value="张斌"></property>
+         </bean>-->
+<!--二：有参构造方法-->
+        <!--如果使用有参构造方法必须要使用一下几个方法-->
+        <!--1.下标赋值 设置有参构造方法的第一个值为张斌1-->
+        <!--<bean id="user" class="com.zhangbin.pojo.User">-->
+            <!--<constructor-arg index="0" value="张斌1"></constructor-arg>-->
+        <!--</bean>-->
+
+        <!--2.通过类型赋值 设置有参构造方法的第一个值为张斌2 ,不建议使用，因为可能会存在两个参数类型相同-->
+        <!--<bean id="user" class="com.zhangbin.pojo.User">-->
+            <!--<constructor-arg type="java.lang.String" value="张斌2"/>-->
+        <!--</bean>-->
+
+        <!--3.直接通过参数名称来设置-->
+            <bean id="user" class="com.zhangbin.pojo.User">
+            <constructor-arg name="name" value="张斌3"/>
+            </bean>
+</beans>

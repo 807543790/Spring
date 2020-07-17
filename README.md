@@ -39,6 +39,8 @@ Spring-01:
                         //通过容器调用，需要什么就获取什么
                         UserServiceImpl userServiceImpl = (UserServiceImpl) context.getBean("UserServiceImpl");
                         userServiceImpl.getUser();
+                        
+                        
 Spring-02:
         所谓ioc:对象由Spring来创建，管理，装配
             
@@ -62,3 +64,28 @@ Spring-02:
                 Hello hello =(Hello) context.getBean("helloId");
                  System.out.println(hello.toString());
                 }
+                
+Spring-03:ioc创建对象的方式
+
+        <!--一：无参构造方法-->
+            <!-- 当实体类创建有参构造方法时，要对bean单独处理，因为它默认使用的是无参构造方法
+                 <bean id="user" class="com.zhangbin.pojo.User">
+                    <property name="name" value="张斌"></property>
+                 </bean>-->
+        <!--二：有参构造方法-->
+                <!--如果使用有参构造方法必须要使用一下几个方法-->
+                <!--1.下标赋值 设置有参构造方法的第一个值为张斌1-->
+                <!--<bean id="user" class="com.zhangbin.pojo.User">-->
+                    <!--<constructor-arg index="0" value="张斌1"></constructor-arg>-->
+                <!--</bean>-->
+        
+                <!--2.通过类型赋值 设置有参构造方法的第一个值为张斌2 ,不建议使用，因为可能会存在两个参数类型相同-->
+                <!--<bean id="user" class="com.zhangbin.pojo.User">-->
+                    <!--<constructor-arg type="java.lang.String" value="张斌2"/>-->
+                <!--</bean>-->
+        
+                <!--3.直接通过参数名称来设置-->
+                    <bean id="user" class="com.zhangbin.pojo.User">
+                    <constructor-arg name="name" value="张斌3"/>
+                    </bean>
+        总结：在配置文件加载的时候，容器中管理的对象就已经初始化了，只要注册号Bean，就回默认调用无参构造方法            
