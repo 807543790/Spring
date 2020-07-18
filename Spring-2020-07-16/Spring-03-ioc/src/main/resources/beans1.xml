@@ -40,7 +40,5 @@
         <!--3.import:
             他可以将多个bean文件导入合并为一个
         -->
-        <import resource="beans1.xml"></import>
-        <import resource="beans2.xml"></import>
 
 </beans>

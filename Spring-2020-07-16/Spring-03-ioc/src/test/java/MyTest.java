@@ -9,10 +9,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @Date 2020/7/17-16:15
  */
 public class MyTest {
+
     @Test
     public void getUser(){
         ApplicationContext context =new  ClassPathXmlApplicationContext("beans.xml");
-        User user = (User) context.getBean("user");
+        User user = (User) context.getBean("uusseerr");
        user.show();
+        System.out.println();
     }
 }

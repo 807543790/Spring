@@ -88,4 +88,23 @@ Spring-03:ioc创建对象的方式
                     <bean id="user" class="com.zhangbin.pojo.User">
                     <constructor-arg name="name" value="张斌3"/>
                     </bean>
-        总结：在配置文件加载的时候，容器中管理的对象就已经初始化了，只要注册号Bean，就回默认调用无参构造方法            
+        总结：在配置文件加载的时候，容器中管理的对象就已经初始化了，只要注册号Bean，就回默认调用无参构造方法        
+        
+        <!--Spring配置-->
+                <!--1：别名：
+                    为当前bean创建别名，使用context.getBean注册时，可以使用bean之前的ID也可以使用别名，效果一样没什么乱用-->
+                <alias name="user" alias="uusseerr"></alias>
+        
+                <!--2：bean的配置
+                    id: bean的唯一标识符，也就是相当于我们的对象名称
+                    class: bean对象对应的全限定名：包名加类型
+                    name: 也是别名，可以产生多个，分割的方式有多种可以用空格，逗号，分号
+                -->
+                <bean id="user" class="com.zhangbin.pojo.User" name="user2 user3,user4;user5">
+                    <constructor-arg name="name" value="张斌3"/>
+                </bean>
+                <!--3.import:
+                    他可以将多个bean文件导入合并为一个
+                -->
+                <import resource="beans1.xml"></import>
+                <import resource="beans2.xml"></import>    
