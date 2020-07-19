@@ -35,7 +35,7 @@
             name: 也是别名，可以产生多个，分割的方式有多种可以用空格，逗号，分号
         -->
         <bean id="user" class="com.zhangbin.pojo.User" name="user2 user3,user4;user5">
-            <constructor-arg name="name" value="张斌3"/>
+                <constructor-arg name="name" value="张斌3"/>
         </bean>
         <!--3.import:
             他可以将多个bean文件导入合并为一个
