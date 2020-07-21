@@ -107,4 +107,99 @@ Spring-03:ioc创建对象的方式
                     他可以将多个bean文件导入合并为一个
                 -->
                 <import resource="beans1.xml"></import>
-                <import resource="beans2.xml"></import>    
+                <import resource="beans2.xml"></import>   
+                
+Spring-04:di-依赖注入                
+                
+                <bean id="student" class="com.zhangbin.pojo.Student">
+                    <!--第一种：普通注入，value-->
+                    <property name="name" value="张斌"/>
+                    
+                    <!--第二种：创建实体类bean，然后实体类注入，ref -->
+                    <property name="address" ref="address"/>
+                    
+                    <!--第三种：数组注入-->
+                    <property name="books">
+                        <array>
+                            <value>红楼梦</value>
+                            <value>西游记</value>
+                            <value>水浒传</value>
+                            <value>三国演义</value>
+                        </array>
+                    </property>
+                    
+                    <!--第四种：list注入-->
+                    <property name="hobbys">
+                        <list>
+                            <value>篮球</value>
+                            <value>足球</value>
+                            <value>健身</value>
+                        </list>
+                    </property>
+                    
+                    <!--第五种map注入-->
+                    <property name="card">
+                        <map>
+                            <entry key="身份证" value="123456"></entry>
+                            <entry key="军官证" value="123456789"></entry>
+                        </map>
+                    </property>
+                    
+                    <!--第六种：set注入-->
+                    <property name="games">
+                        <set>
+                            <value>LOL</value>
+                            <value>PUBG</value>
+                            <value>DNF</value>
+                        </set>
+                    </property>
+                    
+                    <!--第七种：null注入-->
+                    <property name="wife">
+                        <null></null>
+                    </property>
+                    
+                    <!--第八种：properties注入-->
+                    <property name="info">
+                        <props>
+                            <prop key="学号">12345</prop>
+                            <prop key="身份证号">11111</prop>
+                            <prop key="手机号">18629241475</prop>
+                        </props>
+                    </property>
+                </bean>
+                
+Spring-04-01：拓展方式注入
+
+                <?xml version="1.0" encoding="UTF-8"?>
+                <beans xmlns="http://www.springframework.org/schema/beans"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xmlns:p="http://www.springframework.org/schema/p"
+                       xmlns:c="http://www.springframework.org/schema/c"
+                       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+                
+                    <!--p命名空间   可以直接注入属性的值：properties
+                        1.先添加XML配置： xmlns:p="http://www.springframework.org/schema/p"
+                        2.在bean标签注册时直接使用 p:name="张斌" p:age="18"将数据传入实体类测试
+                        -->
+                    <bean id="user" class="com.zhangbin.pojo.User" p:name="张斌" p:age="18"></bean>
+                
+                    <!--c命名空间   通过构造器注入：construct-args 
+                        1.先添加XML配置： xmlns:c="http://www.springframework.org/schema/c"
+                        2.保证实体类有参无参构造器够存在
+                        3.在bean标签注册时直接使用  c:name="张斌1" c:age="21"将数据传入实体类测试
+                        
+                        注意：实体类使用@Date注解会报错
+                        -->
+                    <bean id="user2" class="com.zhangbin.pojo.User" c:name="张斌1" c:age="21"></bean>
+                </beans>
+Spring-04-02：作用域
+        
+               <bean id="user2" class="com.zhangbin.pojo.User" c:name="张斌1" c:age="21" scope="prototype"></bean>
+                <!--作用域（scope）：
+                1.单例模式（scope="singleton"） 使用单例模式创建多个测试，使用的是一个对象，内存地址相同 Spring默认的
+                2.原型模式（scope="prototype"） 使用原型模式创建多个测试，使用的是多个个对象，内存地址不同
+                3.request
+                4.session           3,4,5只能在web开发中使用
+                5.application
+                -->

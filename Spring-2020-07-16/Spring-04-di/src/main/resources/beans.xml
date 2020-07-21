@@ -3,8 +3,58 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="address" class="com.zhangbin.pojo.Address">
+        <property name="address" value="陕西省西安市"></property>
+    </bean>
+
     <bean id="student" class="com.zhangbin.pojo.Student">
         <!--第一种：普通注入，value-->
         <property name="name" value="张斌"/>
+        <!--第二种：创建实体类bean，然后实体类注入，ref -->
+        <property name="address" ref="address"/>
+        <!--第三种：数组注入-->
+        <property name="books">
+            <array>
+                <value>红楼梦</value>
+                <value>西游记</value>
+                <value>水浒传</value>
+                <value>三国演义</value>
+            </array>
+        </property>
+        <!--第四种：list注入-->
+        <property name="hobbys">
+            <list>
+                <value>篮球</value>
+                <value>足球</value>
+                <value>健身</value>
+            </list>
+        </property>
+        <!--第五种map注入-->
+        <property name="card">
+            <map>
+                <entry key="身份证" value="123456"></entry>
+                <entry key="军官证" value="123456789"></entry>
+            </map>
+        </property>
+        <!--第六种：set注入-->
+        <property name="games">
+            <set>
+                <value>LOL</value>
+                <value>PUBG</value>
+                <value>DNF</value>
+            </set>
+        </property>
+        <!--第七种：null注入-->
+        <property name="wife">
+            <null></null>
+        </property>
+        <!--第八种：properties注入-->
+        <property name="info">
+            <props>
+                <prop key="学号">12345</prop>
+                <prop key="身份证号">11111</prop>
+                <prop key="手机号">18629241475</prop>
+            </props>
+        </property>
     </bean>
 </beans>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--p命名空间   可以直接注入属性的值：properties
+        1.先添加XML配置： xmlns:p="http://www.springframework.org/schema/p"
+        2.在bean标签注册时直接使用 p:name="张斌" p:age="18"将数据传入实体类测试
+        -->
+    <bean id="user" class="com.zhangbin.pojo.User" p:name="张斌" p:age="18"></bean>
+
+    <!--c命名空间   通过构造器注入：construct-args
+        1.先添加XML配置： xmlns:c="http://www.springframework.org/schema/c"
+        2.保证实体类有参无参构造器够存在
+        3.在bean标签注册时直接使用  c:name="张斌1" c:age="21"将数据传入实体类测试
+
+        注意：实体类使用@Date注解会报错
+        -->
+    <bean id="user2" class="com.zhangbin.pojo.User" c:name="张斌1" c:age="21" scope="prototype"></bean>
+    <!--作用域（scope）：
+        1.单例模式（scope="singleton"） 使用单例模式创建多个测试，使用的是一个对象，内存地址相同 Spring默认的
+        2.原型模式（scope="prototype"） 使用原型模式创建多个测试，使用的是多个个对象，内存地址不同
+        3.request
+        4.session           3,4,5只能在web开发中使用
+        5.application
+        -->
+</beans>

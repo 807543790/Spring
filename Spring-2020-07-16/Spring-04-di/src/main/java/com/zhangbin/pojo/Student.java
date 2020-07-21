@@ -21,4 +21,17 @@ public class Student {
     private String wife;
     private Properties info;
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", address=" + address.toString() +
+                ", books=" + Arrays.toString(books) +
+                ", hobbys=" + hobbys +
+                ", card=" + card +
+                ", games=" + games +
+                ", wife='" + wife + '\'' +
+                ", info=" + info +
+                '}';
+    }
 }
