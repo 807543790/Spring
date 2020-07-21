@@ -203,3 +203,23 @@ Spring-04-02：作用域
                 4.session           3,4,5只能在web开发中使用
                 5.application
                 -->
+Spring-05：Bean的自动装配
+        1.自动装配是Spring满足bean依赖一种方式
+        2.Spring会在上下文中自动寻找，并自动给bean装配属性
+        3.在Spring中有三种配置的方式
+            1.在XML中显示配置（之前的方式就是）
+            2.在java中显示配置
+            3.隐式的自动装配（重要，也是当学习模块）
+            
+              <!-- autowire="byName"
+                    byName自动装配: 会自动在bean上下文中查找和自己对应的set后边的值对应的bean的ID，如果有就自动装配（弊端：set后边的值必须和bean的id一致）
+                    byType自动装配：会自动在bean上下文中查找和自己对象属性类型相同的bean，如果有就自动装配（弊端：对象类型必须是唯一）
+                 -->
+            <bean id="user" class="com.zhangbin.pojo.User" autowire="byType">
+                <property name="name" value="张斌"></property>
+            </bean>
+    
+            <!--小结：-->
+                <!--byname的时候，需要保证所有的bean的ID唯一，并且这个bean需要和自动注入的属性的set方法的值一致-->
+                <!--bytype的时候，需要保证所有的bean的class唯一，并且这个bean需要和自动注入的属性的类型一致-->
+  

@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-02-helloSpring/Spring-02-helloSpring.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-02-helloSpring/Spring-02-helloSpring.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-03-ioc/Spring-03-ioc.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-03-ioc/Spring-03-ioc.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-04-di/Spring-04-di.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-04-di/Spring-04-di.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-05-Autowired/Spring-05-Autowired.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-05-Autowired/Spring-05-Autowired.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-2020-07-16.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-2020-07-16.iml" />
     </modules>
   </component>
