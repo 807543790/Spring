@@ -263,6 +263,26 @@
                     相同点：都是用来自动装配的，都可以放在属性的字段上
                     不同点:1.@Autowired 默认通过bytype的方式实现【常用】
                            2.@Resource 默认通过byname的方式实现，如果找不到名字，则通过bytype实现 【常用】    
-                
+##Spring-06:注解    
+
+- @Component      
+    @Component:等价于<bean id="user" class="com.zhangbin.pojo.User">   
+    @Component有几个衍生注解，我们在web开发中，会按照MVC三层架构分层
+    - dao 【@Repository】
+    - service 【@service】
+    - controller 【@Controller】
+    - pojo 【@Component】
+    这四个注解都是一样的，都是代表将当前对象注册到Spring中，装配Bean
                    
-  
+- @Value()
+    @Value("张斌")：相当于<property name="name" value="张斌">，可以放在属性上，也可以放在set上
+- @Scope("prototype")
+    @Scope("prototype")   在属性上设置该属性是否为单例或者是原型模式 
+    
+    总结：
+        xml与注解
+        ·xml更加万能,适用于任何场合，维护简单方便
+        ·注解维护复杂，只能在当前类使用
+    
+    
+    
