@@ -1,12 +1,12 @@
 # Spring
-优点：
+##优点：
     Spring是一个开源的免费的框架（容器）
     Spring是一个轻量级，非侵入式的框架
     控制反转（IOC），面向切面编程（AOP）
     支持事务的处理，对框架整合的支持
     总结一句话：**Spring就是一个轻量级的控制反转（IOC）和面向切面编程（AOP）的框架**
     
-Spring-01:
+##Spring-01:
         ioc实现的作用
         
             public class UserTest {
@@ -41,7 +41,7 @@ Spring-01:
                         userServiceImpl.getUser();
                         
                         
-Spring-02:
+##Spring-02:
         所谓ioc:对象由Spring来创建，管理，装配
             
             
@@ -65,7 +65,7 @@ Spring-02:
                  System.out.println(hello.toString());
                 }
                 
-Spring-03:ioc创建对象的方式
+##Spring-03:ioc创建对象的方式
 
         <!--一：无参构造方法-->
             <!-- 当实体类创建有参构造方法时，要对bean单独处理，因为它默认使用的是无参构造方法
@@ -109,8 +109,9 @@ Spring-03:ioc创建对象的方式
                 <import resource="beans1.xml"></import>
                 <import resource="beans2.xml"></import>   
                 
-Spring-04:di-依赖注入                
-                
+##Spring-04:di-依赖注入                
+```xml
+         
                 <bean id="student" class="com.zhangbin.pojo.Student">
                     <!--第一种：普通注入，value-->
                     <property name="name" value="张斌"/>
@@ -168,32 +169,35 @@ Spring-04:di-依赖注入
                         </props>
                     </property>
                 </bean>
+```             
                 
-Spring-04-01：拓展方式注入
-
-                <?xml version="1.0" encoding="UTF-8"?>
-                <beans xmlns="http://www.springframework.org/schema/beans"
-                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                       xmlns:p="http://www.springframework.org/schema/p"
-                       xmlns:c="http://www.springframework.org/schema/c"
-                       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-                
-                    <!--p命名空间   可以直接注入属性的值：properties
-                        1.先添加XML配置： xmlns:p="http://www.springframework.org/schema/p"
-                        2.在bean标签注册时直接使用 p:name="张斌" p:age="18"将数据传入实体类测试
-                        -->
-                    <bean id="user" class="com.zhangbin.pojo.User" p:name="张斌" p:age="18"></bean>
-                
-                    <!--c命名空间   通过构造器注入：construct-args 
-                        1.先添加XML配置： xmlns:c="http://www.springframework.org/schema/c"
-                        2.保证实体类有参无参构造器够存在
-                        3.在bean标签注册时直接使用  c:name="张斌1" c:age="21"将数据传入实体类测试
-                        
-                        注意：实体类使用@Date注解会报错
-                        -->
-                    <bean id="user2" class="com.zhangbin.pojo.User" c:name="张斌1" c:age="21"></bean>
-                </beans>
-Spring-04-02：作用域
+###Spring-04-01：拓展方式注入
+```xml
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <beans xmlns="http://www.springframework.org/schema/beans"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:p="http://www.springframework.org/schema/p"
+                           xmlns:c="http://www.springframework.org/schema/c"
+                           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+                    
+                        <!--p命名空间   可以直接注入属性的值：properties
+                            1.先添加XML配置： xmlns:p="http://www.springframework.org/schema/p"
+                            2.在bean标签注册时直接使用 p:name="张斌" p:age="18"将数据传入实体类测试
+                            -->
+                        <bean id="user" class="com.zhangbin.pojo.User" p:name="张斌" p:age="18"></bean>
+                    
+                        <!--c命名空间   通过构造器注入：construct-args 
+                            1.先添加XML配置： xmlns:c="http://www.springframework.org/schema/c"
+                            2.保证实体类有参无参构造器够存在
+                            3.在bean标签注册时直接使用  c:name="张斌1" c:age="21"将数据传入实体类测试
+                            
+                            注意：实体类使用@Date注解会报错
+                            -->
+                        <bean id="user2" class="com.zhangbin.pojo.User" c:name="张斌1" c:age="21"></bean>
+                    </beans>
+```
+              
+###Spring-04-02：作用域
         
                <bean id="user2" class="com.zhangbin.pojo.User" c:name="张斌1" c:age="21" scope="prototype"></bean>
                 <!--作用域（scope）：
@@ -203,7 +207,7 @@ Spring-04-02：作用域
                 4.session           3,4,5只能在web开发中使用
                 5.application
                 -->
-Spring-05：Bean的自动装配
+##Spring-05：Bean的自动装配
         1.自动装配是Spring满足bean依赖一种方式
         2.Spring会在上下文中自动寻找，并自动给bean装配属性
         3.在Spring中有三种配置的方式
@@ -222,4 +226,43 @@ Spring-05：Bean的自动装配
             <!--小结：-->
                 <!--byname的时候，需要保证所有的bean的ID唯一，并且这个bean需要和自动注入的属性的set方法的值一致-->
                 <!--bytype的时候，需要保证所有的bean的class唯一，并且这个bean需要和自动注入的属性的类型一致-->
+                
+        @Autowired
+        
+            1、使用：
+                1.导入依赖
+                <?xml version="1.0" encoding="UTF-8"?>
+                  <beans xmlns="http://www.springframework.org/schema/beans"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xmlns:context="http://www.springframework.org/schema/context"
+                         xsi:schemaLocation="http://www.springframework.org/schema/beans
+                          https://www.springframework.org/schema/beans/spring-beans.xsd
+                          http://www.springframework.org/schema/context
+                          https://www.springframework.org/schema/context/spring-context.xsd">
+                      2.导入自动配置,开启注解的支持
+                      <context:annotation-config/>
+                  
+                      <bean id="dog" class="com.zhangbin.pojo.Dog"></bean>
+                      <bean id="cat" class="com.zhangbin.pojo.Cat"></bean>
+                      <bean id="user" class="com.zhangbin.pojo.User"></bean>
+                  </beans>
+                  
+            2、总结：     
+                1.直接在属性上使用即可，也可以在set方法上使用
+                2.使用Autowired我们可不用编写Set方法了，前提是你这个自动装配的属性在IOC（也就是Spring）容器中存在，且符合类型：bytype
+                3.@Nullable注解，字段标记了这个注解，说明这个字段可以为NUll；
+                4.@Auotwired(required = false) 说明这个属性的对象可以为NUll;
+                5.@Qualifier(value = "dog222") 假如存在多个相同的对象但是不同名称的bean，可以使用该注解指定bean
+                    示例：
+                         <bean id="dog" class="com.zhangbin.pojo.Dog"></bean>
+                         <bean id="dog222" class="com.zhangbin.pojo.Dog"></bean>
+                6.@Resource 可以替代@Auotwired,该注解只要保证bean数据类型唯一，或者bean名称有相同的即可运行。
+                    如果都不符合可是使用name属性指定唯一的名称 @Resource(name = "dog222")和  @Qualifier(value = "dog222")类似
+                    
+                小结：@Resource和@Autowired的区别：
+                    相同点：都是用来自动装配的，都可以放在属性的字段上
+                    不同点:1.@Autowired 默认通过bytype的方式实现【常用】
+                           2.@Resource 默认通过byname的方式实现，如果找不到名字，则通过bytype实现 【常用】    
+                
+                   
   

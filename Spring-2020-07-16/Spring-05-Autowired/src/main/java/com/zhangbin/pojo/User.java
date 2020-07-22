@@ -1,5 +1,8 @@
 package com.zhangbin.pojo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 /**
  * 认认真真敲代码，开开心心每一天
  *
@@ -7,7 +10,12 @@ package com.zhangbin.pojo;
  */
 
 public class User {
+    @Autowired
     private Cat cat;
+
+    @Autowired
+    @Qualifier(value = "dog222")
+//    @Resource(name = "dog222")
     private Dog dog;
     private String name;
 
