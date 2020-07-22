@@ -12,6 +12,7 @@
         <module name="Spring-04-di" />
         <module name="Spring-05-Autowired" />
         <module name="Spring-06-anno" />
+        <module name="Spring-07-appconfig" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +22,7 @@
       <module name="Spring-04-di" target="1.5" />
       <module name="Spring-05-Autowired" target="1.5" />
       <module name="Spring-06-anno" target="1.5" />
+      <module name="Spring-07-appconfig" target="1.5" />
       <module name="Spring-2020-07-16" target="1.5" />
       <module name="Spring2020-07-17" target="1.5" />
     </bytecodeTargetLevel>

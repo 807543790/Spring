@@ -239,8 +239,11 @@
                           https://www.springframework.org/schema/beans/spring-beans.xsd
                           http://www.springframework.org/schema/context
                           https://www.springframework.org/schema/context/spring-context.xsd">
-                      2.导入自动配置,开启注解的支持
+                          
+                      **1.导入自动配置,开启注解的支持
                       <context:annotation-config/>
+                      2.指定要扫描的包，这个包下的的注解会生效
+                      <context:component-scan base-package="com.zhangbin.pojo"/>**
                   
                       <bean id="dog" class="com.zhangbin.pojo.Dog"></bean>
                       <bean id="cat" class="com.zhangbin.pojo.Cat"></bean>
@@ -285,4 +288,80 @@
         ·注解维护复杂，只能在当前类使用
     
     
+##Spring-07:使用javaConfig实现配置（不使用XML文件将对象放入Spring IOC容器并使用）  
+
+- @Configuration
+         这个对象也会被Spring容器托管，因为它本来就是个@Component
+         @Configuration代表是一个内置类，相当于beans.xml功能一样
+         
+- @ComponentScan("com.zhangbin.pojo")
+          这个标签相当于之前的扫描包下的实体类标签一致
+          
+- @Import(MyConfig2.class)
+          这个注解相当于xml文件中的<Import>标签，将多个文件同时放到一个主文件里边实现一起共用
+- @Bean
+           // @Bean相当于我们之前写的<bean>标签
+          //        <bean id="">相当于方法的方法名（getUser）
+          //        <bean class="">相当于方法的返回值User
+          
+使用步骤
+    1.创建javaConfog文件（相当于之前的XML文件）
+```java
+        package com.zhangbin.config;
+        
+        import com.zhangbin.pojo.User;
+        import org.springframework.context.annotation.Bean;
+        import org.springframework.context.annotation.ComponentScan;
+        import org.springframework.context.annotation.Configuration;
+        import org.springframework.context.annotation.Import;
+        
+        /**
+         * 认认真真敲代码，开开心心每一天
+         *
+         * @Date 2020/7/22-22:58
+         */
+        ////这个对象也会被Spring容器托管，因为它本来就是个@Component
+            //@Configuration代表是一个内置类，相当于beans.xml功能一样
+        @Configuration
+        
+        //这个标签相当于之前的扫描包下的实体类标签一致
+        @ComponentScan("com.zhangbin.pojo")
+        
+        //这个注解相当于xml文件中的<Import>标签，将多个文件同时放到一个主文件里边实现一起共用
+        @Import(MyConfig2.class)
+        
+        public class MyConfig {
+            // @Bean相当于我们之前写的<bean>标签
+        //        <bean id="">相当于方法的方法名（getUser）
+        //        <bean class="">相当于方法的返回值User
+            @Bean
+            public User getUser(){
+                return new User();//就是返回要注入bean的对象
+            }
+        }
+
+``` 
+
+2.实现测试类
+```java
+    import com.zhangbin.config.MyConfig;
+    import com.zhangbin.pojo.User;
+    import org.springframework.context.ApplicationContext;
+    import org.springframework.context.annotation.AnnotationConfigApplicationContext;
     
+    /**
+     * 认认真真敲代码，开开心心每一天
+     *
+     * @Date 2020/7/22-23:03
+     */
+    public class MyTesst {
+        //不使用XML文件将对象注入到Spring IOC容器中，我们就只能AnnotationConfig 上下文获取容器，通过配置类的class对象加载
+        public static void main(String[] args) {
+            ApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
+            User user = context.getBean("getUser", User.class);
+            System.out.println(user.getName());
+        }
+    
+    }
+```
+          
