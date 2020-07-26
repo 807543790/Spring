@@ -439,3 +439,109 @@
     2.公共业务就交给了代理角色，实现了业务的分工。
     3.公共业务发生拓展的时候，方便集中管理。
     4.一个动态代理类代理的是一个接口，一般就是对应的一类业务
+    
+##Spring-09:AOP
+   【重点】使用AOP置入，需要带入一个依赖包
+
+        <!--aop-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+    
+    
+方式一：使用Spring的API接口【主要是SpringAPI接口实现】
+        1.写入log日志的环绕切入
+        2.使用IOC容器，将所有东西注入到IOC。
+        3.测试
+```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:aop="http://www.springframework.org/schema/aop"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+        <!--注册bean-->
+        <bean id="userService" class="com.zhangbin.service.UserServiceImpl"></bean>
+        <bean id="afterlog" class="com.zhangbin.log.AfterLog"></bean>
+        <bean id="log" class="com.zhangbin.log.Log"></bean>
+    
+        <!--配置aop 需要导入AOP的约束-->
+        <aop:config>
+            <!--切入点-->
+            <aop:pointcut id="pointcut" expression="execution(* com.zhangbin.service.UserServiceImpl.*(..))"/>
+    
+            <!--执行环绕增加-->
+            <aop:advisor advice-ref="log" pointcut-ref="pointcut"/>
+            <aop:advisor advice-ref="afterlog" pointcut-ref="pointcut"/>
+    
+        </aop:config>
+    </beans>
+```
+
+方式二：自定义类实现AOP【主要是切面定义】
+```xml
+        <!--方式二：自定义类-->
+        <bean id="div" class="com.zhangbin.diy.DiyPoinCut"></bean>
+        <aop:config>
+            <!--自定义切面，ref 要引用的类-->
+            <aop:aspect ref="div">
+    
+                <!--切入点-->
+                <aop:pointcut id="pointcut" expression="execution(* com.zhangbin.service.UserServiceImpl.*(..))"/>
+    
+                <!--通知-->
+                <aop:before method="before" pointcut-ref="pointcut"/>
+                <aop:after method="after" pointcut-ref="pointcut"/>
+            </aop:aspect>
+        </aop:config>
+```
+
+
+方式三：使用注解实现
+```java
+    package com.zhangbin.diy;
+    
+    import org.aspectj.lang.ProceedingJoinPoint;
+    import org.aspectj.lang.annotation.After;
+    import org.aspectj.lang.annotation.Around;
+    import org.aspectj.lang.annotation.Aspect;
+    import org.aspectj.lang.annotation.Before;
+    
+    /**
+     * 认认真真敲代码，开开心心每一天
+     *
+     * @Date 2020/7/26-22:29
+     */
+    //方法三：使用注解实现
+    
+    @Aspect //标注这是一个切面
+    public class Annotation {
+    
+    
+        @Before("execution( * com.zhangbin.service.UserServiceImpl.*(..))")
+        public void before(){
+            System.out.println("====================方法调用前==================");
+        }
+    
+    
+        @After("execution( * com.zhangbin.service.UserServiceImpl.*(..))")
+        public void after(){
+            System.out.println("====================方法调用后==================");
+        }
+    
+        @Around("execution( * com.zhangbin.service.UserServiceImpl.*(..))")
+        public void around(ProceedingJoinPoint jp) throws Throwable {
+            System.out.println("环绕前");
+            Object proceed = jp.proceed();
+            System.out.println("环绕后");
+        }
+    }
+
+```
+
+    

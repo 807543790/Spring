@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注册bean-->
+    <bean id="userService" class="com.zhangbin.service.UserServiceImpl"></bean>
+    <bean id="afterlog" class="com.zhangbin.log.AfterLog"></bean>
+    <bean id="log" class="com.zhangbin.log.Log"></bean>
+
+
+    <!--方式一：使用原生Spring API接口-->
+    <!--配置aop 需要导入AOP的约束-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;切入点&ndash;&gt;-->
+        <!--<aop:pointcut id="pointcut" expression="execution(* com.zhangbin.service.UserServiceImpl.*(..))"/>-->
+
+        <!--&lt;!&ndash;执行环绕增加&ndash;&gt;-->
+        <!--<aop:advisor advice-ref="log" pointcut-ref="pointcut"/>-->
+        <!--<aop:advisor advice-ref="afterlog" pointcut-ref="pointcut"/>-->
+    <!--</aop:config>-->
+
+    <!--方式二：自定义类-->
+    <!--<bean id="div" class="com.zhangbin.diy.DiyPoinCut"></bean>-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;自定义切面，ref 要引用的类&ndash;&gt;-->
+        <!--<aop:aspect ref="div">-->
+
+            <!--&lt;!&ndash;切入点&ndash;&gt;-->
+            <!--<aop:pointcut id="pointcut" expression="execution(* com.zhangbin.service.UserServiceImpl.*(..))"/>-->
+
+            <!--&lt;!&ndash;通知&ndash;&gt;-->
+            <!--<aop:before method="before" pointcut-ref="pointcut"/>-->
+            <!--<aop:after method="after" pointcut-ref="pointcut"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+    <!--方法三:使用注解-->
+    <bean id="annotation" class="com.zhangbin.diy.Annotation"></bean>
+    <!--开启注解支持-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+
+
+</beans>

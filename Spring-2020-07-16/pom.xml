@@ -17,6 +17,7 @@
         <module>Spring-06-anno</module>
         <module>Spring-07-appconfig</module>
         <module>Spring-08-proxy-代理模式</module>
+        <module>Spring-09-aop</module>
     </modules>
 
     <dependencies>
@@ -37,6 +38,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
+        </dependency>
+        <!--aop-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.4</version>
         </dependency>
     </dependencies>
 
