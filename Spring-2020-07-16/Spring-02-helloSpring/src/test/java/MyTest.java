@@ -12,7 +12,7 @@ public class MyTest {
 //        获取spring的上下文对象，固定的
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 //        我们的对象都在spring中的管理了，我们如果使用直接去里边取出来就可以了;
-        Hello hello =(Hello) context.getBean("helloId");
+        Hello hello =(Hello) context.getBean("hello");
         System.out.println(hello.toString());
     }
 }

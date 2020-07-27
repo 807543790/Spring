@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--导入固定的MyBatis工具类-->
+    <import resource="spring-dao.xml"></import>
+
+    <!--第四步，创建测试实体类-->
+    <bean id="usermapperimpl" class="com.zhangbin.mapper.UserMapperImpl">
+        <property name="session" ref="sqlSession"></property>
+    </bean>
+
+    <!--第二种方法的第四步：创建测试实体类-->
+    <!--这里需要传入的参数直接传spring-dao.xml的第二步即可，spring-dao.xml的第三步直接可以省略-->
+    <bean id="usermapperimpl2" class="com.zhangbin.mapper.UserMapperImpl2">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+</beans>

@@ -479,9 +479,9 @@
             <aop:advisor advice-ref="log" pointcut-ref="pointcut"/>
             <aop:advisor advice-ref="afterlog" pointcut-ref="pointcut"/>
     
-        </aop:config>
-    </beans>
-```
+        </aop:config>s>
+                     ```
+    </bean
 
 方式二：自定义类实现AOP【主要是切面定义】
 ```xml
@@ -544,4 +544,153 @@
 
 ```
 
+##Spring-10:Spring整合MyBatis
+
+###第一种实现方式【建议】
+
+第一步：将之前的MyBatis-config里边的大多数配置放到Spring容器中也就是spring.xml
+```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     
+        <!--第一步-->
+        <!--DataSource:使用Spring的数据源替代MyBatis的配置
+                我们这里使用的spring提供的JDBC:-->
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql://localhost:3306/dayu?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+            <property name="username" value="root"/>
+            <property name="password" value="807543790"/>
+        </bean>
+    
+        <!--第二步-->
+        <!--SQLSessionFactory-->
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property name="dataSource" ref="dataSource"/>
+    
+                <!--拓展：绑定MyBatis的xml文件-->
+                <property name="configLocation" value="classpath:MyBatis-config.xml"/>
+                <!--拓展：替代之前的MyBatis里的Mappers标签-->
+                <property name="mapperLocations" value="classpath:com/zhangbin/mapper/*.xml"/>
+        </bean>
+    
+        <!--第三步-->
+        <!--SqlSessionTemplate:就是我们使用的SqlSession-->
+        <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+            <!--这里只能使用构造器注入，应为该方法没有SET方法-->
+            <constructor-arg index="0" ref="sqlSessionFactory"/>
+        </bean>
+
+    </beans>
+```
+    
+第二步：创建mapperImpl实现类
+```java
+    package com.zhangbin.mapper;
+    
+    import com.zhangbin.pojo.User;
+    import org.mybatis.spring.SqlSessionTemplate;
+    
+    import java.util.List;
+    
+    /**
+     * 认认真真敲代码，开开心心每一天
+     *
+     * @Date 2020/7/27-21:19
+     */
+    public class UserMapperImpl implements UserMapper {
+        //我们所有的操作，都是使用sqlSession来执行，现在都使用SqlSessionTemplate
+        private SqlSessionTemplate session;
+    
+        //设置SET方法，方便Spring使用
+        public void setSession(SqlSessionTemplate session) {
+            this.session = session;
+        }
+    
+        //之前测试的方法现在直接写在下边的方法中
+        public List<User> selectUser() {
+            UserMapper mapper = session.getMapper(UserMapper.class);
+            return mapper.selectUser();
+        }
+    }
+
+```
+    
+第三步：使用Spring测试
+```java
+      //测试MyBatis集成到Spring中实现查询方法
+        @Test
+        public void test01(){
+    
+           ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
+            UserMapper usermapperimpl = (UserMapper) context.getBean("usermapperimpl");
+            usermapperimpl.selectUser();
+    
+    
+        }
+```
+
+###第二种实现方式：
+     第一步：将之前的MyBatis-config里边的大多数配置放到Spring容器中也就是spring.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--第一步-->
+    <!--DataSource:使用Spring的数据源替代MyBatis的配置
+            我们这里使用的spring提供的JDBC:-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/dayu?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="807543790"/>
+    </bean>
+
+    <!--第二步-->
+    <!--SQLSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
+
+            <!--拓展：绑定MyBatis的xml文件-->
+            <property name="configLocation" value="classpath:MyBatis-config.xml"/>
+            <!--拓展：替代之前的MyBatis里的Mappers标签-->
+            <property name="mapperLocations" value="classpath:com/zhangbin/mapper/*.xml"/>
+    </bean>
+
+    <!--第三步-->
+    <!--SqlSessionTemplate:就是我们使用的SqlSession-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!--这里只能使用构造器注入，应为该方法没有SET方法-->
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+</beans>
+```
+
+     第二步：创建mapperImpl实现类  
+      
+```java
+    package com.zhangbin.mapper;
+    
+    import com.zhangbin.pojo.User;
+    import org.mybatis.spring.support.SqlSessionDaoSupport;
+    
+    import java.util.List;
+    
+    /**
+     * 认认真真敲代码，开开心心每一天
+     *
+     * @Date 2020/7/27-22:04
+     */
+    public class UserMapperImpl2 extends SqlSessionDaoSupport implements UserMapper {
+        
+    //    第二种实现方法直接继承SqlSessionDaoSupport，这样就通过getSqlSession()拿到SqlSession了，剩下的方法都一样
+        public List<User> selectUser() {
+            return getSqlSession().getMapper(UserMapper.class).selectUser();
+        }
+    }
+```     

@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-07-appconfig/Spring-07-appconfig.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-07-appconfig/Spring-07-appconfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-08-proxy-代理模式/Spring-08-proxy-代理模式.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-08-proxy-代理模式/Spring-08-proxy-代理模式.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-09-aop/Spring-09-aop.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-09-aop/Spring-09-aop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-10-myBatis/Spring-10-myBatis.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-10-myBatis/Spring-10-myBatis.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-2020-07-16/Spring-2020-07-16.iml" filepath="$PROJECT_DIR$/Spring-2020-07-16/Spring-2020-07-16.iml" />
     </modules>
   </component>

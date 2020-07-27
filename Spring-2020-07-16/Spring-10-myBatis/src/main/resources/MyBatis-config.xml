@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--以下标签严格按照顺序放置，否则会报错-->
+<configuration>
+
+
+    <!--二：配置设置-->
+    <settings>
+        <!--使用默认日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
+    <!--三：类型别名 定义好别名后直接在文件中使用别名即可 注意不区分大小写-->
+    <typeAliases>
+        <!--1.定义一个实体类别名-->
+        <!--<typeAlias type="com.com.monkey.pojo.user" alias="User"/>-->
+
+        <!--2.扫描包下所有的实体类名称，XML中的数据类型和返回值类型直接填写实体类名称即可-->
+        <package name="com.zhangbin.pojo"/>
+
+        <!--3.使用注解@Alias直接定义别名使用-->
+    </typeAliases>
+
+
+</configuration>

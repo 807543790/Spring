@@ -1,6 +1,5 @@
 package UserDaoTest;
 
-import com.zhangbin.dao.ControllerDaoImpl;
 import com.zhangbin.service.UserServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,13 +11,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class UserTest {
     public static void main(String[] args) {
-        UserServiceImpl userService = new UserServiceImpl();
+//        UserServiceImpl userService = new UserServiceImpl();
 
 //        在我们之前的业务中，用户的需求可能会影响我们底层的代码，我们需要根据用户的需求去修改源代码
 //        如果程序代码十分庞大，修改一次成本代价非常大
 //        userService.setUserDao(new UserDaoImpl());
-          userService.setUserDao(new ControllerDaoImpl());
-          userService.getUser();
+//          userService.setUserDao(new ControllerDaoImpl());
+//          userService.getUser();
 //-------------------------------------------------------------------------------------------------------------------------
         //使用Spring
         // 获取ApplicationContext:拿到Spring的容器
