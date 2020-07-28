@@ -19,6 +19,7 @@
         <module>Spring-08-proxy-代理模式</module>
         <module>Spring-09-aop</module>
         <module>Spring-10-myBatis</module>
+        <module>Spring-11-transanction</module>
     </modules>
 
     <dependencies>

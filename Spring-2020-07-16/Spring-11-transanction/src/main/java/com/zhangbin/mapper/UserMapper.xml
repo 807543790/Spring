@@ -8,4 +8,11 @@
         select * from user
     </select>
 
+    <insert id="addUser" parameterType="user">
+        insert into user(id,name,bio) values (#{id},#{name},#{bio})
+    </insert>
+
+    <delete id="deleteUser">
+        deletes from user where id = {#id}
+    </delete>
 </mapper>

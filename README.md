@@ -694,3 +694,40 @@
         }
     }
 ```     
+
+##Spring-11:声名式事务
+
+先添加 http://www.springframework.org/schema/tx等文件，在固定化事务标签，使用AOP实现切入执行事务
+```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/aop
+           https://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+     <!--事务-->
+        <!--要开启 Spring 的事务处理功能，在 Spring 的配置文件中创建一个 DataSourceTransactionManager 对象-->
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <constructor-arg ref="dataSource" />
+        </bean>
+    
+        <!--结合AOP实现事务的织入-->
+        <!--配置事务通知-->
+        <tx:advice id="txAdvice" transaction-manager="transactionManager">
+            <!--propagation="REQUIRED"是默认值，不加也可以-->
+            <tx:attributes>
+                <tx:method name="*" propagation="REQUIRED"/>
+            </tx:attributes>
+        </tx:advice>
+    
+        <!--配置事务切入-->
+        <aop:config>
+            <aop:pointcut id="txPointCut" expression="execution(* com.zhangbin.mapper.*.*(..))"></aop:pointcut>
+            <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"></aop:advisor>
+        </aop:config>
+```

@@ -16,6 +16,7 @@
         <module name="Spring-08-proxy-代理模式" />
         <module name="Spring-09-aop" />
         <module name="Spring-10-myBatis" />
+        <module name="Spring-11-transanction" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -29,6 +30,7 @@
       <module name="Spring-08-proxy-代理模式" target="1.5" />
       <module name="Spring-09-aop" target="1.5" />
       <module name="Spring-10-myBatis" target="1.5" />
+      <module name="Spring-11-transanction" target="1.5" />
       <module name="Spring-2020-07-16" target="1.5" />
       <module name="Spring2020-07-17" target="1.5" />
     </bytecodeTargetLevel>

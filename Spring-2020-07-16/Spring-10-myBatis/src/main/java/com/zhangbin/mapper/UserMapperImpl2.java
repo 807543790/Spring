@@ -12,7 +12,15 @@ import java.util.List;
  */
 public class UserMapperImpl2 extends SqlSessionDaoSupport implements UserMapper {
 
-//    第二种实现方法直接继承SqlSessionDaoSupport，这样就通过getSqlSession()拿到SqlSession了，剩下的方法都一样
+    public int addUser(User user) {
+        return 0;
+    }
+
+    public int deleteUser(int id) {
+        return 0;
+    }
+
+    //    第二种实现方法直接继承SqlSessionDaoSupport，这样就通过getSqlSession()拿到SqlSession了，剩下的方法都一样
     public List<User> selectUser() {
         return getSqlSession().getMapper(UserMapper.class).selectUser();
     }

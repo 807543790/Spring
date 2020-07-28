@@ -24,4 +24,5 @@ public class UserMapperImpl implements UserMapper {
         UserMapper mapper = session.getMapper(UserMapper.class);
         return mapper.selectUser();
     }
+
 }
